@@ -1,0 +1,10 @@
+{
+  "name": "MapDrop",
+  "short_name": "MapDrop",
+  "description": "Create beautiful categorized maps and share them with your audience.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FBF8F3",
+  "theme_color": "#D4613B",
+  "icons": []
+}
