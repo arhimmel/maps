@@ -1,7 +1,8 @@
 {
   "permissions": {
     "allow": [
-      "Skill(design-consultation)"
+      "Skill(design-consultation)",
+      "Bash(cargo check:*)"
     ]
   }
 }
