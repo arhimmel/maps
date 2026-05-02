@@ -1,0 +1,17 @@
+# Local dev override — applied automatically by `podman compose up`.
+# Runs `next dev` with the source bind-mounted for hot-module replacement.
+# For a production-only run, use: podman compose -f docker-compose.yml up
+services:
+  frontend:
+    build:
+      context: ./frontend
+      target: dev
+    command: npm run dev
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+      - /app/.next
+    environment:
+      BACKEND_URL: http://backend:8080
+      NODE_ENV: development
+      WATCHPACK_POLLING: "true"

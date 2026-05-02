@@ -1,7 +1,7 @@
-FROM rust:1.83-slim AS builder
+FROM rust:1.95-slim AS builder
 WORKDIR /app
 RUN apt-get update \
-    && apt-get install -y --no-install-recommends pkg-config \
+    && apt-get install -y --no-install-recommends pkg-config curl ca-certificates \
     && rm -rf /var/lib/apt/lists/*
 COPY Cargo.toml Cargo.lock ./
 COPY src ./src
