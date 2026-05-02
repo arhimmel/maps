@@ -16,10 +16,20 @@ All notable changes to MapDrop will be documented in this file.
 - Updated `globals.css` with full dark-mode palette, pin/sheet animations, and MapLibre attribution overrides.
 - Added `maplibre-gl/dist/maplibre-gl.css` import to root `layout.tsx`.
 
+- New `/maps` index route — card grid showing all maps with hero gradient, emoji, title, subtitle, creator handle, saves/drops count. Login now redirects here instead of a hard-coded slug.
+- Demo data expanded to 3 full map fixtures: Best Ramen in NYC (13 pins), Slow Mornings in Brooklyn (6 pins), Tacos Worth The Drive East LA (6 pins).
+- `MapMeta` gains `heroEmoji`, `heroGradient`, `center`, and `zoom` — each map owns its visual identity and initial viewport.
+- `findDemoMap(slug)` helper for server component slug lookup; `DEMO_MAP` re-export kept for backwards compat.
+- `useMaps()` hook added alongside `useMap(slug)`; both respect the `USE_LIVE_API` flag.
+- Dev hot-reload: `docker-compose.override.yml` bind-mounts `./frontend` and runs `next dev`; `frontend/Dockerfile` gains a `dev` build target; `WATCHPACK_POLLING=true` for macOS inotify compatibility.
+- Justfile: `up-build`, `up-prod`, `up-prod-build` commands added with section comments explaining when to use each.
+
 ### Decisions
 - **Standalone HTML prototype kept alongside Next.js** — `MapDrop.html` is a high-fidelity reference for design review; `frontend/` is the production wiring. Both share the DESIGN.md token system 1:1.
 - **Demo data over live API for v1 prototype** — swapping in real fetches is a single boolean flip in `use-map.ts`. Avoids blocking design work on backend endpoints.
 - **MapLibre raster style with desaturation + warm bg layer** — matches DESIGN.md "organic editorial" tone without a custom vector style.
+- **Map picker before map view** — login routes to `/maps` index so users choose a map rather than landing on a hard-coded slug; makes the multi-map data model visible from day one.
+- **Per-map `center`/`zoom`/`heroGradient` in `MapMeta`** — avoids hard-coding viewport and visual identity in individual page components; keeps map data self-contained and API-ready.
 
 ## [0.1.0.0] - 2026-03-24
 
