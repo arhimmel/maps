@@ -21,8 +21,8 @@ export default function EditPage() {
 
   useMapLibre({
     containerRef,
-    center: [-73.985, 40.74],
-    zoom: 12.5,
+    center: data?.meta.center ?? [-73.985, 40.74],
+    zoom: (data?.meta.zoom ?? 11.6) + 1,
   });
 
   const valid = name.trim().length > 0;

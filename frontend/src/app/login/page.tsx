@@ -17,7 +17,7 @@ export default function LoginPage() {
     // TODO: replace with apiFetch('/auth/email/start') once backend ships
     setTimeout(() => {
       setAccessToken("demo-token");
-      router.push("/maps/best-ramen-in-nyc");
+      router.push("/maps");
     }, 350);
   };
 

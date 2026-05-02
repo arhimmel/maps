@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { DEMO_MAP } from "@/lib/demo-data";
+import { findDemoMap } from "@/lib/demo-data";
 import { Icon } from "@/components/icon";
 import { notFound } from "next/navigation";
 
@@ -9,18 +9,20 @@ export default async function PinDetailPage({
   params: Promise<{ slug: string; id: string }>;
 }) {
   const { slug, id } = await params;
+  const map = findDemoMap(slug);
+  if (!map) notFound();
   const pinId = Number(id);
-  const pin = DEMO_MAP.pins.find((p) => p.id === pinId);
+  const pin = map.pins.find((p) => p.id === pinId);
   if (!pin) notFound();
 
-  const indexInMap = DEMO_MAP.pins.findIndex((p) => p.id === pinId) + 1;
-  const category = DEMO_MAP.categories.find((c) => c.id === pin.category);
+  const indexInMap = map.pins.findIndex((p) => p.id === pinId) + 1;
+  const category = map.categories.find((c) => c.id === pin.category);
 
   return (
     <main style={{ minHeight: "100vh", background: "var(--color-bg)", display: "flex", flexDirection: "column" }}>
       <div style={{
         height: 320, position: "relative", flexShrink: 0,
-        background: "linear-gradient(135deg, #D4613B 0%, #C4892B 60%, #8C5E3B 100%)",
+        background: map.meta.heroGradient,
         overflow: "hidden",
       }}>
         <div style={{ position: "absolute", inset: 0, backgroundImage: "repeating-linear-gradient(135deg, rgba(255,255,255,0.07) 0 12px, rgba(255,255,255,0) 12px 24px)" }} />
@@ -47,7 +49,7 @@ export default async function PinDetailPage({
 
       <div style={{ flex: 1, padding: "36px 24px 100px", maxWidth: 600, width: "100%", margin: "0 auto" }}>
         <div style={{ fontSize: 12, color: "var(--color-muted)", letterSpacing: 1.4, textTransform: "uppercase", fontWeight: 500 }}>
-          {category?.label} · drop {String(indexInMap).padStart(2, "0")} of {DEMO_MAP.pins.length}
+          {category?.label} · drop {String(indexInMap).padStart(2, "0")} of {map.pins.length}
         </div>
         <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 600, fontSize: 36, lineHeight: 1.05, letterSpacing: -0.4, marginTop: 6 }}>{pin.name}</h2>
         <div style={{ marginTop: 6, display: "flex", gap: 8, alignItems: "center", color: "var(--color-muted)", fontSize: 14 }}>
@@ -62,7 +64,7 @@ export default async function PinDetailPage({
           borderRadius: "0 12px 12px 0",
         }}>
           <div style={{ fontSize: 11, color: "var(--color-accent)", fontWeight: 600, letterSpacing: 1.2, textTransform: "uppercase" }}>
-            {DEMO_MAP.meta.creator.name.split(" ")[0]}'s note
+            {map.meta.creator.name.split(" ")[0]}'s note
           </div>
           <p style={{ marginTop: 6, fontFamily: "var(--font-display)", fontSize: 19, lineHeight: 1.4, fontStyle: "italic" }}>"{pin.note}"</p>
         </div>

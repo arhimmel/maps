@@ -21,8 +21,8 @@ export default function MapPage() {
 
   useMapLibre({
     containerRef,
-    center: [-73.985, 40.74],
-    zoom: 11.6,
+    center: data?.meta.center ?? [-73.985, 40.74],
+    zoom: data?.meta.zoom ?? 11.6,
     onReady: (m) => setMap(m),
   });
 
@@ -40,10 +40,20 @@ export default function MapPage() {
     map.flyTo({ center: [pin.lng, pin.lat], zoom: 13.5, duration: 900, essential: true });
   }, [selectedId, map, data]);
 
-  if (loading || !data) {
+  if (loading) {
     return (
       <main style={{ height: "100vh", display: "flex", alignItems: "center", justifyContent: "center", background: "var(--color-bg)" }}>
         <div className="skeleton" style={{ width: 200, height: 24 }} />
+      </main>
+    );
+  }
+
+  if (!data) {
+    return (
+      <main style={{ height: "100vh", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 12, background: "var(--color-bg)", padding: 24, textAlign: "center" }}>
+        <div style={{ fontFamily: "var(--font-display)", fontWeight: 600, fontSize: 24 }}>Map not found</div>
+        <p style={{ color: "var(--color-muted)", maxWidth: 320 }}>We couldn&apos;t find a map at that link.</p>
+        <Link href="/maps" style={{ marginTop: 8, padding: "10px 18px", borderRadius: 9999, background: "var(--color-accent)", color: "#fff", textDecoration: "none", fontWeight: 600 }}>Browse maps</Link>
       </main>
     );
   }
@@ -69,10 +79,10 @@ export default function MapPage() {
         }}>
           <div style={{
             width: 40, height: 40, borderRadius: 10,
-            background: "linear-gradient(135deg, #D4613B 0%, #C4892B 100%)",
+            background: data.meta.heroGradient,
             display: "flex", alignItems: "center", justifyContent: "center",
             fontSize: 22, color: "#fff",
-          }}>🍜</div>
+          }}>{data.meta.heroEmoji}</div>
           <div style={{ flex: 1, minWidth: 0 }}>
             <div style={{ fontFamily: "var(--font-display)", fontWeight: 600, fontSize: 17, lineHeight: 1.1 }}>
               {data.meta.title}

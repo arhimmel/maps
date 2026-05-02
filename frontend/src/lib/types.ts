@@ -26,6 +26,10 @@ export type MapMeta = {
   creator: { name: string; handle: string; avatar: string };
   saves: number;
   drops: number;
+  heroEmoji: string;
+  heroGradient: string;
+  center: [number, number];
+  zoom: number;
 };
 
 export type MapDetail = {
