@@ -2,7 +2,8 @@
   "permissions": {
     "allow": [
       "Skill(design-consultation)",
-      "Bash(cargo check:*)"
+      "Bash(cargo check:*)",
+      "Bash(git commit -m ' *)"
     ]
   }
 }
