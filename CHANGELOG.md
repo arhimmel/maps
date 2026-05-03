@@ -24,7 +24,11 @@ All notable changes to MapDrop will be documented in this file.
 - Dev hot-reload: `docker-compose.override.yml` bind-mounts `./frontend` and runs `next dev`; `frontend/Dockerfile` gains a `dev` build target; `WATCHPACK_POLLING=true` for macOS inotify compatibility.
 - Justfile: `up-build`, `up-prod`, `up-prod-build` commands added with section comments explaining when to use each.
 
+### Added — Tooling
+- Vendored 5 project-scoped Claude Code skills from [mattpocock/skills](https://github.com/mattpocock/skills) at commit `b843cb5` into `.claude/skills/`: `diagnose`, `grill-with-docs`, `tdd`, `zoom-out`, `improve-codebase-architecture`. Pinned via `.claude/skills/MATTPOCOCK_VERSION`.
+
 ### Decisions
+- **mattpocock skills vendored, not symlinked or submodule'd** — copied files committed to the repo so any clone of `maps` gets them with no extra setup. Updates are a manual re-fetch by bumping the SHA in `MATTPOCOCK_VERSION`. Scoped to this project only (not `~/.claude/skills/`).
 - **Standalone HTML prototype kept alongside Next.js** — `MapDrop.html` is a high-fidelity reference for design review; `frontend/` is the production wiring. Both share the DESIGN.md token system 1:1.
 - **Demo data over live API for v1 prototype** — swapping in real fetches is a single boolean flip in `use-map.ts`. Avoids blocking design work on backend endpoints.
 - **MapLibre raster style with desaturation + warm bg layer** — matches DESIGN.md "organic editorial" tone without a custom vector style.

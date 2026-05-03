@@ -1,0 +1,12 @@
+upstream: https://github.com/mattpocock/skills
+commit: b843cb5ea74b1fe5e58a0fc23cddef9e66076fb8
+vendored: 2026-05-02
+skills:
+  - diagnose
+  - grill-with-docs
+  - improve-codebase-architecture
+  - tdd
+  - zoom-out
+
+To update: re-fetch the desired commit's tarball, overwrite each skill
+directory under this folder, and bump the commit + date above.

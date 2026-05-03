@@ -1,9 +1,9 @@
 {
-  "model": "opusplan",
+  "model": "opusplan[1m]",
   "permissions": {
     "allow": [
       "Bash(cargo check:*)",
-      "Bash(git commit -m ' *)",
+      "Bash(git commit -m *)",
       "Bash(npm test *)",
       "Bash(git add *)"
     ]
